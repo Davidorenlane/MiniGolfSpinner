@@ -16,7 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var fieldsChanger: UITextField!
     
     var spinnerFields: [UIView] = []
-    //var numSpinnerFields: Double = 4
+    var numSpinnerFields: Double? = 0
+    var currentField: Int = 0
     
     var kArcCentreX: CGFloat = 0
     var kArcCentreY: CGFloat = 0
@@ -44,8 +45,8 @@ class ViewController: UIViewController {
         spinnerHeight = spinnerSize
         spinnerFieldWidth = spinnerSize
         kBoxViewCornerRadius = spinnerSize/2
-        //default number of fields = 4
-        drawSpinner(withBase: spinnerContainer, numFields: 4)
+        numSpinnerFields = 4
+        drawSpinner(withBase: spinnerContainer, numFields: numSpinnerFields!)
     }
     
     internal func drawSpinner(withBase baseView:UIView, numFields: Double) {
@@ -115,15 +116,42 @@ class ViewController: UIViewController {
         
     }
 
-    private func rotateView(targetView: UIView, duration: Double) {
-        UIView.animate(withDuration: duration, delay: 0.0, options: .curveEaseOut, animations: {
-            targetView.transform = targetView.transform.rotated(by: CGFloat(Float.pi))
-        })
-        //{ finished in self.rotateView(targetView: targetView, duration: duration)}
+    private func rotateView(targetView: UIView) -> Int {
+        var duration = Int.random(in: 2*Int(numSpinnerFields!) ... (3*Int(numSpinnerFields!))-1)
+        let spins = duration
+        let rotation = 2*Double.pi/self.numSpinnerFields!
+        while duration > 0 {
+            if duration == 1 {
+                UIView.animate(
+                    withDuration: TimeInterval(spins)*0.2,
+                    delay: 0.0,
+                    options: .curveEaseOut,
+                    animations: {targetView.transform = targetView.transform.rotated(by: CGFloat(rotation))},
+                    completion: {_ in self.presentFieldAlert(spins: self.currentField)})
+            } else {
+                UIView.animate(
+                    withDuration: TimeInterval(spins)*0.2,
+                    delay: 0.0,
+                    options: .curveEaseOut,
+                    animations: {targetView.transform = targetView.transform.rotated(by: CGFloat(rotation))})
+            }
+            duration = duration - 1
+        }
+        return spins
+    }
+    
+    func presentFieldAlert(spins: Int) {
+        print(spins)
+        let alert = UIAlertController(title: "Alert", message: String(spins), preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Click", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func spinWheel(_ sender: Any) {
-        rotateView(targetView: spinnerContainer, duration: kSpinnerDuration)
+        let rotations = rotateView(targetView: spinnerContainer)
+        //cover spin button with clear view
+        currentField = (currentField + rotations) % Int(numSpinnerFields!)
+        //print(currentField)
         /*for i in spinnerFields {
             rotateView(targetView: i, duration: kSpinnerDuration)
         }*/
@@ -142,12 +170,12 @@ class ViewController: UIViewController {
     
     @IBAction func changeNumFields(_ sender: Any) {
         //Use ifs to do this conversion better
-        let numSpinnerFields: Double? = Double(fieldsChanger.text!)
+        numSpinnerFields = Double(fieldsChanger.text!)
         if let unwrapped = numSpinnerFields {
             destroySpinner()
             drawSpinner(withBase: spinnerContainer, numFields: unwrapped)
         }
-        
+        currentField = 0
         
     }
     

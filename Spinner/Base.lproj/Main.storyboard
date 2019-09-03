@@ -33,7 +33,7 @@
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="spinWheel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QIi-Q5-Es6"/>
+                                    <action selector="spinWheel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="StV-Sy-gNL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFC-m3-4mV">
