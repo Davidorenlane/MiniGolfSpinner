@@ -19,14 +19,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdd-dK-Q3e">
-                                <rect key="frame" x="20" y="50" width="280" height="280"/>
+                                <rect key="frame" x="20" y="144" width="280" height="280"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="hdd-dK-Q3e" secondAttribute="height" multiplier="1:1" id="Vpb-kr-H7J"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZQ-UH-Tk1">
-                                <rect key="frame" x="142" y="370" width="36" height="34"/>
+                                <rect key="frame" x="142" y="464" width="36" height="34"/>
                                 <color key="backgroundColor" red="0.0" green="0.04656653078011682" blue="0.66779834016943007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Spin">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -36,45 +36,42 @@
                                     <action selector="spinWheel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="StV-Sy-gNL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFC-m3-4mV">
-                                <rect key="frame" x="48" y="469" width="224" height="30"/>
-                                <state key="normal" title="Change number of spinner fields"/>
-                                <connections>
-                                    <action selector="changeNumFields:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LBA-hS-gaq"/>
-                                </connections>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jfk-FL-4A2">
+                                <rect key="frame" x="225" y="20" width="79" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="New Round"/>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YPP-2J-Wop">
-                                <rect key="frame" x="110" y="431" width="100" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="NM4-VV-jiK"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mWj-3K-cse">
+                                <rect key="frame" x="20" y="23" width="135" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Challenge"/>
+                                    <segment title="Fun"/>
+                                </segments>
+                                <connections>
+                                    <action selector="challengeFunSelector" destination="BYZ-38-t0r" eventType="valueChanged" id="5Zo-bT-SHV"/>
+                                    <action selector="switchChallengeFun:" destination="BYZ-38-t0r" eventType="valueChanged" id="jZI-25-kxd"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="fFC-m3-4mV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6O6-zO-ZpK"/>
-                            <constraint firstItem="hdd-dK-Q3e" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="8Uq-fk-hUF"/>
                             <constraint firstItem="9ZQ-UH-Tk1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EH5-2U-BQw"/>
                             <constraint firstItem="hdd-dK-Q3e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="J59-AG-QCl"/>
-                            <constraint firstItem="YPP-2J-Wop" firstAttribute="top" secondItem="9ZQ-UH-Tk1" secondAttribute="bottom" constant="27" id="UqG-Sv-FjT"/>
+                            <constraint firstItem="hdd-dK-Q3e" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KQj-uz-eOt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hdd-dK-Q3e" secondAttribute="trailing" constant="20" id="b3d-9b-LCs"/>
-                            <constraint firstItem="fFC-m3-4mV" firstAttribute="top" secondItem="YPP-2J-Wop" secondAttribute="bottom" constant="8" id="hIN-E4-vUu"/>
                             <constraint firstItem="9ZQ-UH-Tk1" firstAttribute="top" secondItem="hdd-dK-Q3e" secondAttribute="bottom" constant="40" id="o74-4P-Dde"/>
-                            <constraint firstItem="YPP-2J-Wop" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="r1F-NI-WdT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="fieldsChanger" destination="YPP-2J-Wop" id="5Vi-3q-dDa"/>
+                        <outlet property="challengeFunSelector" destination="mWj-3K-cse" id="EHS-4Z-ZP8"/>
                         <outlet property="spinnerContainer" destination="hdd-dK-Q3e" id="Iez-yv-61n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="129.91071428571428"/>
+            <point key="canvasLocation" x="136.875" y="128.87323943661971"/>
         </scene>
     </scenes>
 </document>

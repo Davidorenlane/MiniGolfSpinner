@@ -13,7 +13,11 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var spinnerContainer: UIView!
-    @IBOutlet weak var fieldsChanger: UITextField!
+    //@IBOutlet weak var fieldsChanger: UITextField!
+    @IBOutlet weak var challengeFunSelector: UISegmentedControl!
+
+    
+    var challengeFun = 0
     
     var spinnerFields: [UIView] = []
     var numSpinnerFields: Double? = 0
@@ -34,10 +38,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTextFields()
+        //configureTextFields()
         //sets size of spinner according to device
         let spinnerSize: CGFloat = self.spinnerContainer.frame.size.width/2
-        print(spinnerSize)
+        //let spinnerX
+        //print(spinnerSize)
         kArcCentreX = spinnerSize/2
         kArcCentreY = spinnerSize/2
         kArcRadius = spinnerSize/2
@@ -45,13 +50,13 @@ class ViewController: UIViewController {
         spinnerHeight = spinnerSize
         spinnerFieldWidth = spinnerSize
         kBoxViewCornerRadius = spinnerSize/2
-        numSpinnerFields = 4
-        drawSpinner(withBase: spinnerContainer, numFields: numSpinnerFields!)
+        numSpinnerFields = 8
+        drawSpinner(withBase: spinnerContainer, numFields: numSpinnerFields!, withColor1: UIColor.red, withColor2: UIColor.green)
     }
     
-    internal func drawSpinner(withBase baseView:UIView, numFields: Double) {
+    internal func drawSpinner(withBase baseView:UIView, numFields: Double, withColor1 color1:UIColor, withColor2 color2:UIColor) {
         //Create the frame of the spinner, a CGRect object
-        let frame = CGRect(x: Double(baseView.frame.width/2 - spinnerWidth/2), y: Double(baseView.frame.height/2 - spinnerHeight/2), width: Double(spinnerWidth), height: Double(spinnerHeight))
+        let frame = CGRect(x: Double(kArcCentreX), y: Double(kArcCentreY), width: Double(spinnerWidth), height: Double(spinnerHeight))
         
         /*//boxView just contains the middle of the spinner (deprecated)
         let boxView = UIView(frame: frame)
@@ -72,10 +77,10 @@ class ViewController: UIViewController {
             shapeLayer.path = circlePath.cgPath
             shapeLayer.fillColor = UIColor.clear.cgColor
             if Int(i) % 2 == 0 {
-                shapeLayer.strokeColor = UIColor.red.cgColor
+                shapeLayer.strokeColor = color1.cgColor
             }
             else {
-                shapeLayer.strokeColor = UIColor.green.cgColor
+                shapeLayer.strokeColor = color2.cgColor
             }
             shapeLayer.lineWidth = CGFloat(spinnerFieldWidth)
             shapeLayer.strokeEnd = 1
@@ -117,20 +122,20 @@ class ViewController: UIViewController {
     }
 
     private func rotateView(targetView: UIView) -> Int {
-        var duration = Int.random(in: 2*Int(numSpinnerFields!) ... (3*Int(numSpinnerFields!))-1)
+        var duration = Int.random(in: 2*Int(numSpinnerFields!) ... ((3*Int(numSpinnerFields!))-1))
         let spins = duration
         let rotation = 2*Double.pi/self.numSpinnerFields!
         while duration > 0 {
             if duration == 1 {
                 UIView.animate(
-                    withDuration: TimeInterval(spins)*0.2,
+                    withDuration: TimeInterval(spins)*0.1,
                     delay: 0.0,
                     options: .curveEaseOut,
                     animations: {targetView.transform = targetView.transform.rotated(by: CGFloat(rotation))},
                     completion: {_ in self.presentFieldAlert(spins: self.currentField)})
             } else {
                 UIView.animate(
-                    withDuration: TimeInterval(spins)*0.2,
+                    withDuration: TimeInterval(spins)*0.1,
                     delay: 0.0,
                     options: .curveEaseOut,
                     animations: {targetView.transform = targetView.transform.rotated(by: CGFloat(rotation))})
@@ -157,9 +162,22 @@ class ViewController: UIViewController {
         }*/
     }
     
-    private func configureTextFields() {
-        fieldsChanger.delegate = self
+    @IBAction func switchChallengeFun(_ sender: Any) {
+        //print(challengeFunSelector.selectedSegmentIndex)
+        if challengeFunSelector.selectedSegmentIndex == 0 {
+            destroySpinner()
+            drawSpinner(withBase: spinnerContainer, numFields: 8, withColor1: UIColor.red, withColor2: UIColor.green)
+            challengeFun = 0
+        }
+        if challengeFunSelector.selectedSegmentIndex == 1 {
+            destroySpinner()
+            drawSpinner(withBase: spinnerContainer, numFields: 8, withColor1: UIColor.blue, withColor2: UIColor.yellow)
+            challengeFun = 1
+            //print("hi")
+        }
     }
+    
+    
     
     private func destroySpinner() {
         for i in spinnerFields {
@@ -168,7 +186,12 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func changeNumFields(_ sender: Any) {
+    
+    /*private func configureTextFields() {
+     fieldsChanger.delegate = self
+     }*/
+    
+    /*@IBAction func changeNumFields(_ sender: Any) {
         //Use ifs to do this conversion better
         numSpinnerFields = Double(fieldsChanger.text!)
         if let unwrapped = numSpinnerFields {
@@ -177,13 +200,13 @@ class ViewController: UIViewController {
         }
         currentField = 0
         
-    }
+    }*/
     
 }
 
-extension ViewController: UITextFieldDelegate {
+/*extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-}
+}*/
