@@ -18,6 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jy9-5E-0G2">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuR-xR-0X7" userLabel="Mini Golf  Spinner">
+                                <rect key="frame" x="30" y="35.5" width="168.5" height="100.5"/>
+                                <string key="text">Mini Golf 
+Spinner</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdd-dK-Q3e">
                                 <rect key="frame" x="20" y="144" width="280" height="280"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -25,25 +36,12 @@
                                     <constraint firstAttribute="width" secondItem="hdd-dK-Q3e" secondAttribute="height" multiplier="1:1" id="Vpb-kr-H7J"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZQ-UH-Tk1">
-                                <rect key="frame" x="142" y="464" width="36" height="34"/>
-                                <color key="backgroundColor" red="0.0" green="0.04656653078011682" blue="0.66779834016943007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Spin">
-                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="spinWheel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="StV-Sy-gNL"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jfk-FL-4A2">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jfk-FL-4A2">
                                 <rect key="frame" x="225" y="20" width="79" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="New Round"/>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mWj-3K-cse">
-                                <rect key="frame" x="20" y="23" width="135" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mWj-3K-cse">
+                                <rect key="frame" x="84.5" y="520" width="151" height="29"/>
                                 <segments>
                                     <segment title="Challenge"/>
                                     <segment title="Fun"/>
@@ -53,20 +51,50 @@
                                     <action selector="switchChallengeFun:" destination="BYZ-38-t0r" eventType="valueChanged" id="jZI-25-kxd"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZQ-UH-Tk1">
+                                <rect key="frame" x="124.5" y="464" width="71" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="Got-ih-24T"/>
+                                    <constraint firstAttribute="width" constant="71" id="bS2-7G-heK"/>
+                                </constraints>
+                                <state key="normal" title="Spin">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="spinWheel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="StV-Sy-gNL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Jy9-5E-0G2" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0Gf-kA-3HK"/>
+                            <constraint firstItem="Jy9-5E-0G2" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Cpo-ki-RDr"/>
                             <constraint firstItem="9ZQ-UH-Tk1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EH5-2U-BQw"/>
                             <constraint firstItem="hdd-dK-Q3e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="J59-AG-QCl"/>
                             <constraint firstItem="hdd-dK-Q3e" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KQj-uz-eOt"/>
+                            <constraint firstItem="mWj-3K-cse" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Pnh-V0-tEY"/>
+                            <constraint firstItem="Jy9-5E-0G2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="U7T-tu-r8V"/>
+                            <constraint firstItem="hdd-dK-Q3e" firstAttribute="top" secondItem="nuR-xR-0X7" secondAttribute="bottom" constant="8" id="WpM-gD-hL9"/>
+                            <constraint firstItem="Jfk-FL-4A2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="aSN-bu-Gzf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hdd-dK-Q3e" secondAttribute="trailing" constant="20" id="b3d-9b-LCs"/>
+                            <constraint firstItem="Jy9-5E-0G2" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="epK-ca-fhb"/>
                             <constraint firstItem="9ZQ-UH-Tk1" firstAttribute="top" secondItem="hdd-dK-Q3e" secondAttribute="bottom" constant="40" id="o74-4P-Dde"/>
+                            <constraint firstItem="nuR-xR-0X7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="qIc-N0-0Hs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Jfk-FL-4A2" secondAttribute="trailing" constant="16" id="u1q-lA-UTe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mWj-3K-cse" secondAttribute="bottom" constant="20" id="uLx-J1-0Oh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="challengeFunSelector" destination="mWj-3K-cse" id="EHS-4Z-ZP8"/>
+                        <outlet property="spinButton" destination="9ZQ-UH-Tk1" id="0xl-Cd-ELP"/>
                         <outlet property="spinnerContainer" destination="hdd-dK-Q3e" id="Iez-yv-61n"/>
+                        <outlet property="titleLabel" destination="nuR-xR-0X7" id="5qW-zZ-YGI"/>
+                        <outlet property="touchBlocker" destination="Jy9-5E-0G2" id="Qk7-0r-p8T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

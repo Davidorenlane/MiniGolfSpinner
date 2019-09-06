@@ -12,12 +12,35 @@ import UIKit
 
 class ViewController: UIViewController {
     
+
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var touchBlocker: UIButton!
+    
     @IBOutlet weak var spinnerContainer: UIView!
     //@IBOutlet weak var fieldsChanger: UITextField!
+    @IBOutlet weak var spinButton: UIButton!
     @IBOutlet weak var challengeFunSelector: UISegmentedControl!
 
+    let challengeAndFunTexts: [String] =
+        ["Use the tip of your putter for your first shot.",
+         "Kick your first shot.",
+         "Move your ball back off the course before your first shot.",
+         "Each shot, stand on the opposite side of the ball as usual (Play off-handed).",
+         "After your first shot, only use the putter like a pool cue.",
+         "Hit each shot with your eyes closed.",
+         "Play one-handed.",
+         "Play normally!",
+         
+         "Automatic hole in one!",
+         "Hit your first shot with your eyes closed.",
+         "Take one step towards the hole before your first shot.",
+         "Hit your first shot through your legs.",
+         "Add one stroke to any other player's score.",
+         "Spin in place 10 times before your first shot.",
+         "Anytime your shot hits another player's ball, that shot doesnt count towards your score (and you decide when each player hits).",
+         "You can re-do one shot."]
     
-    var challengeFun = 0
+    var challengeOrFun = 0
     
     var spinnerFields: [UIView] = []
     var numSpinnerFields: Double? = 0
@@ -38,6 +61,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.layoutIfNeeded()
+        self.view.bringSubviewToFront(titleLabel)
+        self.view.sendSubviewToBack(touchBlocker)
+        challengeFunSelector.tintColor = UIColor.red
+        spinButton.setTitleColor(UIColor.red, for: .normal)
+        spinButton.setTitleColor(UIColor.black, for: .disabled)
+        spinButton.backgroundColor = UIColor.white
+        spinButton.layer.cornerRadius = 5
+        spinButton.layer.borderWidth = 1
+        spinButton.layer.borderColor = UIColor.red.cgColor
+    spinButton.setBackgroundColor(challengeFunSelector.tintColor.withAlphaComponent(0.25), for: .highlighted)
+
+
         //configureTextFields()
         //sets size of spinner according to device
         let spinnerSize: CGFloat = self.spinnerContainer.frame.size.width/2
@@ -55,6 +91,8 @@ class ViewController: UIViewController {
     }
     
     internal func drawSpinner(withBase baseView:UIView, numFields: Double, withColor1 color1:UIColor, withColor2 color2:UIColor) {
+        
+        currentField = 0
         //Create the frame of the spinner, a CGRect object
         let frame = CGRect(x: Double(kArcCentreX), y: Double(kArcCentreY), width: Double(spinnerWidth), height: Double(spinnerHeight))
         
@@ -147,14 +185,16 @@ class ViewController: UIViewController {
     
     func presentFieldAlert(spins: Int) {
         print(spins)
-        let alert = UIAlertController(title: "Alert", message: String(spins), preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Click", style: UIAlertAction.Style.default, handler: nil))
+        self.view.sendSubviewToBack(touchBlocker)
+        let alert = UIAlertController(title: "This Hole:", message: challengeAndFunTexts[currentField+(8*challengeOrFun)], preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func spinWheel(_ sender: Any) {
         let rotations = rotateView(targetView: spinnerContainer)
         //cover spin button with clear view
+        self.view.bringSubviewToFront(touchBlocker)
         currentField = (currentField + rotations) % Int(numSpinnerFields!)
         //print(currentField)
         /*for i in spinnerFields {
@@ -167,13 +207,23 @@ class ViewController: UIViewController {
         if challengeFunSelector.selectedSegmentIndex == 0 {
             destroySpinner()
             drawSpinner(withBase: spinnerContainer, numFields: 8, withColor1: UIColor.red, withColor2: UIColor.green)
-            challengeFun = 0
+            challengeOrFun = 0
+            challengeFunSelector.tintColor = UIColor.red
+            spinButton.layer.borderColor = UIColor.red.cgColor
+            spinButton.setTitleColor(UIColor.red, for: .normal)
+            spinButton.setBackgroundColor(challengeFunSelector.tintColor.withAlphaComponent(0.25), for: .highlighted)
+            spinButton.layer.cornerRadius = 5
+
         }
         if challengeFunSelector.selectedSegmentIndex == 1 {
             destroySpinner()
             drawSpinner(withBase: spinnerContainer, numFields: 8, withColor1: UIColor.blue, withColor2: UIColor.yellow)
-            challengeFun = 1
-            //print("hi")
+            challengeOrFun = 1
+            challengeFunSelector.tintColor = UIColor.blue
+            spinButton.layer.borderColor = UIColor.blue.cgColor
+            spinButton.setBackgroundColor(challengeFunSelector.tintColor.withAlphaComponent(0.25), for: .highlighted)
+            spinButton.setTitleColor(UIColor.blue, for: .normal)
+           
         }
     }
     
@@ -202,6 +252,27 @@ class ViewController: UIViewController {
         
     }*/
     
+}
+
+extension UIButton {
+    // https://stackoverflow.com/questions/14523348/how-to-change-the-background-color-of-a-uibutton-while-its-highlighted
+    private func image(withColor color: UIColor) -> UIImage? {
+        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        
+        context?.setFillColor(color.cgColor)
+        context?.fill(rect)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
+        self.setBackgroundImage(image(withColor: color), for: state)
+    }
 }
 
 /*extension ViewController: UITextFieldDelegate {
