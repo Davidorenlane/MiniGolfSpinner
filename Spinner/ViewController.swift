@@ -66,7 +66,8 @@ class ViewController: UIViewController {
         self.view.sendSubviewToBack(touchBlocker)
         challengeFunSelector.tintColor = UIColor.red
         spinButton.setTitleColor(UIColor.red, for: .normal)
-        spinButton.setTitleColor(UIColor.black, for: .disabled)
+        spinButton.setTitleColor(UIColor(displayP3Red: 111.0/255.0, green: 113.0/255.0, blue: 121.0/255.0, alpha: 1), for: .disabled)
+        
         spinButton.backgroundColor = UIColor.white
         spinButton.layer.cornerRadius = 5
         spinButton.layer.borderWidth = 1
@@ -187,8 +188,25 @@ class ViewController: UIViewController {
         print(spins)
         self.view.sendSubviewToBack(touchBlocker)
         let alert = UIAlertController(title: "This Hole:", message: challengeAndFunTexts[currentField+(8*challengeOrFun)], preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(
+            title: "OK",
+            style: UIAlertAction.Style.default,
+            handler: {(alert: UIAlertAction!) in
+                //enable spin button
+                self.spinButton.isEnabled = true
+                if self.challengeOrFun == 0 {
+                    self.spinButton.layer.borderColor = UIColor.red.cgColor
+                } else {
+                    self.spinButton.layer.borderColor = UIColor.blue.cgColor
+                }
+                
+
+        }))
         self.present(alert, animated: true, completion: nil)
+        //disable spin button
+        spinButton.isEnabled = false
+        spinButton.layer.borderColor = UIColor(displayP3Red: 111.0/255.0, green: 113.0/255.0, blue: 121.0/255.0, alpha: 1).cgColor
+
     }
     
     @IBAction func spinWheel(_ sender: Any) {
