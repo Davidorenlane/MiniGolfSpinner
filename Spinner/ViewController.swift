@@ -16,13 +16,45 @@ class ViewController: UIViewController {
     //Blocks button presses while spinner spins
     //use this to end spin animation and present UIAlert when user taps while spinner is spinning
     @IBOutlet weak var touchBlocker: UIButton!
+    
+    //SPINNER
     //UIView in which spinner is drawn
     @IBOutlet weak var spinnerContainer: UIView!
+    //configure spinner
+    var spinnerSize: CGFloat = 0
+    var spinnerRadius: CGFloat = 0
+    var spinnerCenter: CGFloat = 0
+    //NOTE: optional was for when this was controlled by textfield
+    var numSpinnerFields: Double? = 0
+    //Field currently at the top of the spinner
+    var currentField: Int = 0
+    
+    internal func configureSpinner(spinner: UIView){
+        //sets size of spinner according to device (due to Auto Layout constraints on spinnerContainer)
+        spinnerSize = self.spinnerContainer.frame.size.width/2
+        spinnerRadius = spinnerSize/2
+        spinnerCenter = spinnerSize/2
+        
+        numSpinnerFields = 8
+    }
+    
+    //SPIN BUTTON
     //Spins spinner when tapped
     @IBOutlet weak var spinButton: UIButton!
+    //configure spinButton
+    internal func configureSpinButton(button: UIButton){
+        button.setTitleColor(UIColor.red, for: .normal)
+        button.setTitleColor(UIColor(displayP3Red: 111.0/255.0, green: 113.0/255.0, blue: 121.0/255.0, alpha: 1), for: .disabled)
+        button.backgroundColor = UIColor.white
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.red.cgColor
+        button.setBackgroundColor(challengeFunSelector.tintColor.withAlphaComponent(0.25), for: .highlighted)
+    }
+    
+    //MODE SELECTOR
     //Used to switch game mode
     @IBOutlet weak var challengeFunSelector: UISegmentedControl!
-
     //Current game mode. Challenge = 0, Fun = 1.
     var challengeOrFun = 0
     //Challenge color = red, Fun color = blue
@@ -48,15 +80,11 @@ class ViewController: UIViewController {
          "Anytime your shot hits another player's ball, that shot doesnt count towards your score (and you decide when each player hits).",
          "You can re-do one shot."]
     
-    var spinnerSize: CGFloat = 0
-    var spinnerRadius: CGFloat = 0
-    var spinnerCenter: CGFloat = 0
+    internal func configureSegmentedControl(segmentedControl: UISegmentedControl){
+        segmentedControl.tintColor = UIColor.red
+    }
     
-    var numSpinnerFields: Double? = 0
-
-    //Field currently at the top of the spinner
-    var currentField: Int = 0
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,25 +92,10 @@ class ViewController: UIViewController {
         //should be able to do this in IB...
         self.view.bringSubviewToFront(titleLabel)
         self.view.sendSubviewToBack(touchBlocker)
-        
-        //configure segmented control
-        challengeFunSelector.tintColor = UIColor.red
-        
-        //configure spin button
-        spinButton.setTitleColor(UIColor.red, for: .normal)
-        spinButton.setTitleColor(UIColor(displayP3Red: 111.0/255.0, green: 113.0/255.0, blue: 121.0/255.0, alpha: 1), for: .disabled)
-        spinButton.backgroundColor = UIColor.white
-        spinButton.layer.cornerRadius = 5
-        spinButton.layer.borderWidth = 1
-        spinButton.layer.borderColor = UIColor.red.cgColor
-        spinButton.setBackgroundColor(challengeFunSelector.tintColor.withAlphaComponent(0.25), for: .highlighted)
-
-        //sets size of spinner according to device (due to Auto Layout constraints on spinnerContainer)
-        spinnerSize = self.spinnerContainer.frame.size.width/2
-        spinnerRadius = spinnerSize/2
-        spinnerCenter = spinnerSize/2
        
-        numSpinnerFields = 8
+        configureSpinButton(button: spinButton)
+        configureSegmentedControl(segmentedControl: challengeFunSelector)
+        configureSpinner(spinner: spinnerContainer)
         
         //puts spinner on screen
         drawSpinner(withBase: spinnerContainer, numFields: numSpinnerFields!, withColor1: UIColor.red, withColor2: UIColor.green)
@@ -206,6 +219,7 @@ class ViewController: UIViewController {
             challengeOrFun = 1
         }
             //reconfigure UI color according to mode
+            //Note: could probably make this modular
             challengeFunSelector.tintColor = cAndFColors[challengeOrFun]
             spinButton.layer.borderColor = cAndFColors[challengeOrFun].cgColor
             spinButton.setTitleColor(cAndFColors[challengeOrFun], for: .normal)
